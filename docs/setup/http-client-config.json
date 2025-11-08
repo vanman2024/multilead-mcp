@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "multilead": {
+      "url": "http://localhost:8000/mcp",
+      "description": "Multilead MCP Server - HTTP Transport"
+    }
+  }
+}

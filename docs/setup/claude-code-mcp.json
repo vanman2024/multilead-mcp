@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "multilead": {
+      "command": "python",
+      "args": [
+        "/home/gotime2022/Projects/mcp-servers/multilead-mcp/server.py"
+      ],
+      "env": {
+        "MULTILEAD_API_KEY": "your_multilead_api_key_here",
+        "MULTILEAD_BASE_URL": "https://api.multilead.co",
+        "MULTILEAD_TIMEOUT": "30",
+        "TRANSPORT": "stdio",
+        "LOG_LEVEL": "INFO"
+      }
+    }
+  }
+}
