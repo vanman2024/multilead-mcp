@@ -2,6 +2,10 @@
 
 A comprehensive FastMCP server providing access to the **Multilead Open API** with 74 endpoints for lead management, campaigns, conversations, webhooks, and analytics.
 
+<a href="https://glama.ai/mcp/servers/@vanman2024/multilead-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@vanman2024/multilead-mcp/badge" alt="Multilead Open API Server MCP server" />
+</a>
+
 ## Overview
 
 This MCP server enables Claude and other AI assistants to interact with the Multilead platform for:
