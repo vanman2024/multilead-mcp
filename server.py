@@ -4,7 +4,8 @@ Multilead Open API MCP Server
 A comprehensive FastMCP server providing access to the Multilead Open API with 74 endpoints
 for lead management, campaigns, conversations, webhooks, and analytics.
 
-API Documentation: https://docs.multilead.co/api-reference
+API Documentation: https://documenter.getpostman.com/view/7428744/UV5ZAGMg
+Base URL: https://api.multilead.io/api/open-api/v1
 """
 
 import json
@@ -16,6 +17,12 @@ import httpx
 from dotenv import load_dotenv
 from fastmcp import FastMCP
 from fastmcp.exceptions import ToolError
+
+try:
+    from fastmcp.server.middleware.response_limiting import ResponseLimitingMiddleware
+    HAS_RESPONSE_LIMITING = True
+except ImportError:
+    HAS_RESPONSE_LIMITING = False
 from pydantic import BaseModel, Field
 
 # Load environment variables
@@ -27,42 +34,66 @@ mcp = FastMCP(
     instructions="""
     This server provides comprehensive access to the Multilead Open API for managing:
 
-    **Lead Management (32 endpoints)**:
+    **Lead Management (14 endpoints)**:
     - Create, retrieve, update, and delete leads
-    - Manage lead tags, custom fields, and properties
-    - Search and filter leads with advanced queries
-    - Import/export leads in bulk
-    - Track lead lifecycle and engagement history
+    - Add leads to campaigns, pause/resume execution
+    - Manage lead tags and track lead status
+    - Get leads from campaigns, threads, and seats
 
-    **Campaign Management (12 endpoints)**:
-    - Create and configure email campaigns
-    - Schedule and manage campaign execution
-    - Track campaign performance metrics
-    - Manage campaign templates and segments
+    **Campaign Management (6 endpoints)**:
+    - Create campaigns from templates
+    - Get campaign info and campaign lists
+    - Export campaigns and manage campaign leads
 
-    **Conversations (15 endpoints)**:
+    **Users & Seats (15 endpoints)**:
+    - User registration, authentication, and password management
+    - Create and manage seats (accounts)
+    - Connect/disconnect LinkedIn accounts
+    - Transfer credits between seats
+
+    **Conversations (12 endpoints)**:
     - Access email thread conversations
     - Retrieve message history and metadata
-    - Track conversation participants and timestamps
-    - Export conversation data
+    - Send emails and LinkedIn messages
+    - Mark messages as seen and manage threads
 
-    **Webhooks (8 endpoints)**:
+    **Webhooks (6 endpoints)**:
     - Register webhook endpoints for real-time events
-    - Manage webhook configurations
+    - Create and delete seat-level and global webhooks
     - Subscribe to lead, campaign, and conversation events
-    - Test webhook deliveries
 
-    **Analytics & Reporting (7 endpoints)**:
-    - Generate lead performance reports
-    - Campaign analytics and ROI tracking
-    - Engagement metrics and trends
-    - Custom report generation
+    **Seats (3 endpoints)**:
+    - Manage seat tags and lead sources
+    - Return leads to campaigns from seats
+
+    **Statistics (4 endpoints)**:
+    - Campaign statistics and performance metrics
+    - Export statistics as CSV
+    - All campaigns statistics overview
+
+    **Blacklist (4 endpoints)**:
+    - Global and seat-level keyword blacklists
+    - Add keywords and upload blacklist CSVs
+
+    **Warmup (1 endpoint)**:
+    - Activate InboxFlare email warmup
+
+    **Team Management (6 endpoints)**:
+    - Create teams and manage team members
+    - Invite members and assign roles
+    - Remove team members
+
+    **Settings (1 endpoint)**:
+    - Resolve identity type IDs to descriptions
 
     All endpoints require authentication via API key. The server handles rate limiting,
     retries, and error responses automatically.
     """,
     version="1.0.0",
 )
+
+if HAS_RESPONSE_LIMITING:
+    mcp.add_middleware(ResponseLimitingMiddleware(max_size=100_000))
 
 
 # Configuration
@@ -71,15 +102,14 @@ class MultileadConfig:
 
     def __init__(self):
         self.api_key = os.getenv("MULTILEAD_API_KEY")
-        self.base_url = os.getenv("MULTILEAD_BASE_URL", "https://api.multilead.co")
+        self.base_url = os.getenv("MULTILEAD_BASE_URL", "https://api.multilead.io/api/open-api/v1")
         self.timeout = int(os.getenv("MULTILEAD_TIMEOUT", "30"))
         self.debug = os.getenv("MULTILEAD_DEBUG", "false").lower() == "true"
 
         if not self.api_key:
             raise ValueError(
                 "MULTILEAD_API_KEY environment variable is required. "
-                "Please set it in your .env file. "
-                "Get your API key from: https://app.multilead.co/settings/api"
+                "Please set it in your .env file."
             )
 
 
@@ -93,7 +123,7 @@ class MultileadClient:
     def __init__(self):
         self.base_url = config.base_url.rstrip("/")
         self.headers = {
-            "Authorization": config.api_key,  # Multilead API uses direct key, not Bearer token
+            "Authorization": config.api_key,
             "Content-Type": "application/json",
             "Accept": "application/json",
         }
@@ -110,7 +140,7 @@ class MultileadClient:
         Make an authenticated request to the Multilead API
 
         Args:
-            method: HTTP method (GET, POST, PUT, DELETE)
+            method: HTTP method (GET, POST, PUT, PATCH, DELETE)
             endpoint: API endpoint path (without base URL)
             params: Query parameters
             json_data: JSON request body
@@ -404,6 +434,8 @@ async def create_lead(
     """
     Create a new lead in Multilead
 
+    Note: This endpoint may not be available in all Multilead API versions. Use campaign-scoped lead tools (e.g., get_leads_from_campaign) as an alternative.
+
     Args:
         email: Lead email address (required)
         first_name: Lead first name
@@ -440,6 +472,8 @@ async def get_lead(lead_id: str) -> Dict[str, Any]:
     """
     Retrieve a lead by ID
 
+    Note: This endpoint may not be available in all Multilead API versions. Use campaign-scoped lead tools (e.g., get_leads_from_campaign) as an alternative.
+
     Args:
         lead_id: The unique identifier of the lead
 
@@ -461,6 +495,8 @@ async def list_leads(
 ) -> Dict[str, Any]:
     """
     List and filter leads with pagination
+
+    Note: This endpoint may not be available in all Multilead API versions. Use campaign-scoped lead tools (e.g., get_leads_from_campaign) as an alternative.
 
     Args:
         tags: Filter by tags (optional)
@@ -506,6 +542,8 @@ async def update_lead(
     """
     Update an existing lead's properties
 
+    Note: This endpoint may not be available in all Multilead API versions. Use campaign-scoped lead tools (e.g., get_leads_from_campaign) as an alternative.
+
     Args:
         lead_id: The unique identifier of the lead
         email: New email address
@@ -545,6 +583,8 @@ async def update_lead(
 async def delete_lead(lead_id: str) -> Dict[str, Any]:
     """
     Delete a lead by ID
+
+    Note: This endpoint may not be available in all Multilead API versions. Use campaign-scoped lead tools (e.g., get_leads_from_campaign) as an alternative.
 
     Args:
         lead_id: The unique identifier of the lead to delete
@@ -2166,27 +2206,6 @@ async def transfer_credits(
 
 
 @mcp.tool()
-async def get_tags_of_a_specific_seat(
-    user_id: str,
-    account_id: str,
-) -> Dict[str, Any]:
-    """
-    Get Tags of a Specific Seat
-
-    This action retrieves all tags related to a specific seat.
-
-    Args:
-        user_id: User ID
-        account_id: Account/Seat ID
-
-    Returns:
-        List of tags associated with the seat
-    """
-    result = await client.request("GET", f"/users/{user_id}/accounts/{account_id}/tags")
-    return result
-
-
-@mcp.tool()
 async def connect_linkedin_account(
     user_id: str,
     account_id: str,
@@ -3161,8 +3180,25 @@ async def delete_global_webhook(
     return result
 
 
+@mcp.tool()
+async def get_description_for_id_type(
+    ids: str,
+) -> str:
+    """
+    Get descriptions for identity type IDs (resolves internal IDs to human-readable labels).
+
+    Args:
+        ids: Comma-separated identity type IDs to look up
+
+    Returns:
+        JSON string with identity type descriptions for the given IDs
+    """
+    result = await client.request("GET", f"/identityType/ids/{ids}")
+    return json.dumps(result, indent=2)
+
+
 # ============================================================================
-# RESOURCES - Example implementations
+# RESOURCES
 # ============================================================================
 
 
@@ -3200,26 +3236,25 @@ def get_server_config() -> str:
 - MULTILEAD_TIMEOUT: {config_info['timeout_seconds']}
 - MULTILEAD_DEBUG: {config_info['debug_mode']}
 
-## Available Tool Categories
+## Available Tool Categories (76 tools)
 
-1. **Lead Management** (5 tools implemented, 27 more available):
-   - create_lead - Create new leads
-   - get_lead - Retrieve lead by ID
-   - list_leads - List and filter leads
-   - update_lead - Update lead properties
-   - delete_lead - Delete leads
-
-2. **Campaign Management** (Coming soon - 12 endpoints)
-3. **Conversations** (Coming soon - 15 endpoints)
-4. **Webhooks** (Coming soon - 8 endpoints)
-5. **Analytics** (Coming soon - 7 endpoints)
+1. **Lead Management** (14 tools) - Add leads, pause/resume, tags, campaigns
+2. **Campaign Management** (6 tools) - Create, export, campaign info
+3. **Users & Seats** (15 tools) - User management, seat provisioning
+4. **Conversations** (12 tools) - Email and LinkedIn threads
+5. **Webhooks** (6 tools) - Event subscriptions
+6. **Seats** (3 tools) - Tags, LinkedIn connect/disconnect
+7. **Statistics** (4 tools) - Campaign stats, CSV export
+8. **Blacklist** (4 tools) - Keyword blacklists
+9. **Warmup** (1 tool) - InboxFlare warmup
+10. **Team Management** (6 tools) - Teams, roles, members
+11. **Settings** (1 tool) - Identity type resolution
 
 ## Getting Started
 
 To use this server, ensure you have:
-1. A valid Multilead API key from https://app.multilead.co/settings/api
-2. The API key set in your .env file as MULTILEAD_API_KEY
-3. Network access to {config_info['base_url']}
+1. A valid Multilead API key set as MULTILEAD_API_KEY in your .env
+2. Network access to {config_info['base_url']}
 
 For full API documentation, visit: https://docs.multilead.co/api-reference
 """

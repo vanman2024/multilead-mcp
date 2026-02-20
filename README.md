@@ -172,9 +172,25 @@ Expected response:
 
 ## Deployment
 
-The Multilead MCP Server supports two deployment modes:
+The Multilead MCP Server supports three deployment modes:
 
-### STDIO Deployment (Local/IDE Integration)
+### 🚀 FastMCP Cloud (Recommended - Managed Hosting)
+
+The fastest way to deploy with automatic scaling, monitoring, and HTTPS endpoints.
+
+**Quick Start:**
+```
+Repository: https://github.com/vanman2024/multilead-mcp
+Server Entrypoint: server.py:mcp
+Required: MULTILEAD_API_KEY environment variable
+
+Deployment URL: https://multilead-mcp.fastmcp.app/mcp
+```
+
+**Complete Guide:** [FastMCP Cloud Quick Start](FASTMCP_CLOUD_QUICK_START.md)
+**Detailed Documentation:** [FastMCP Cloud Deployment Guide](docs/deployment/FASTMCP_CLOUD_DEPLOYMENT.md)
+
+### 💻 STDIO Deployment (Local/IDE Integration)
 
 For Claude Desktop, Cursor, and Claude Code integration.
 
@@ -198,9 +214,9 @@ For Claude Desktop, Cursor, and Claude Code integration.
 
 **Detailed Guide:** [IDE Setup Guide](docs/setup/IDE_SETUP.md)
 
-### HTTP Deployment (Remote Access)
+### 🌐 HTTP Deployment (Self-Hosted Remote Access)
 
-For web services, remote access, and cloud deployment.
+For web services, remote access, and custom cloud deployment.
 
 **Development:**
 ```bash
@@ -208,7 +224,7 @@ For web services, remote access, and cloud deployment.
 ```
 
 **Production:**
-See the complete [Deployment Guide](docs/deployment/DEPLOYMENT.md) for:
+See the complete [Deployment Guide](docs/deployment/DEPLOYMENT_GUIDE.md) for:
 - systemd service configuration
 - Docker deployment
 - nginx reverse proxy setup
@@ -236,13 +252,22 @@ RATE_LIMIT_PER_HOUR=1000    # Requests per hour
 
 ### Documentation
 
-Complete deployment documentation is available in the `docs/` directory:
+Complete deployment documentation is available:
 
-- **[Deployment Guide](docs/deployment/DEPLOYMENT.md)** - Complete deployment instructions
+**Quick Start:**
+- **[FastMCP Cloud Quick Start](FASTMCP_CLOUD_QUICK_START.md)** - Copy-paste ready cloud deployment
+
+**Deployment Guides:**
+- **[FastMCP Cloud Deployment Guide](docs/deployment/FASTMCP_CLOUD_DEPLOYMENT.md)** - Managed hosting deployment
+- **[Self-Hosted Deployment Guide](docs/deployment/DEPLOYMENT_GUIDE.md)** - Complete self-hosted deployment
 - **[Deployment Checklist](docs/deployment/DEPLOYMENT_CHECKLIST.md)** - Pre/post deployment checklist
+
+**Setup Guides:**
 - **[IDE Setup Guide](docs/setup/IDE_SETUP.md)** - Claude Desktop, Cursor, Claude Code integration
 - **[Environment Variables](docs/setup/ENVIRONMENT_VARIABLES.md)** - Complete variable reference
-- **Configuration Templates** in `docs/setup/` - Ready-to-use IDE configs
+
+**Configuration Templates:**
+- Ready-to-use IDE configs in `docs/setup/`
 
 ## Available Tools
 

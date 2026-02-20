@@ -2,7 +2,7 @@
   "$schema": "https://gofastmcp.com/public/schemas/fastmcp.json/v1.json",
   "name": "multilead-mcp",
   "version": "1.0.0",
-  "description": "FastMCP server for Multilead Open API - comprehensive lead management, campaigns, conversations, webhooks, and analytics",
+  "description": "FastMCP server for Multilead Open API - 77 tools covering leads, campaigns, users, seats, conversations, messages, webhooks, statistics, blacklists, warmup, and team management",
   "source": {
     "path": "server.py",
     "entrypoint": "mcp"
@@ -10,19 +10,19 @@
   "environment": {
     "python": ">=3.10",
     "dependencies": [
-      "fastmcp>=2.13.0",
+      "fastmcp>=3.0.0",
       "httpx>=0.27.0",
       "pydantic>=2.0.0",
       "python-dotenv>=1.0.0"
     ],
     "env": {
       "MULTILEAD_API_KEY": {
-        "description": "Your Multilead API key from https://app.multilead.co/settings/api",
+        "description": "Your Multilead API key",
         "required": true
       },
       "MULTILEAD_BASE_URL": {
         "description": "Multilead API base URL",
-        "default": "https://api.multilead.co"
+        "default": "https://api.multilead.io/api/open-api/v1"
       },
       "MULTILEAD_TIMEOUT": {
         "description": "Request timeout in seconds",
@@ -64,7 +64,16 @@
   "metadata": {
     "author": "FastMCP Build System",
     "license": "MIT",
-    "keywords": ["multilead", "lead-management", "linkedin-automation", "sales-automation", "campaign-management", "mcp", "fastmcp"],
+    "keywords": [
+      "multilead",
+      "skylead",
+      "lead-management",
+      "email-outreach",
+      "sales-automation",
+      "campaign-management",
+      "mcp",
+      "fastmcp"
+    ],
     "features": {
       "tools_count": 77,
       "resources_count": 2,
@@ -74,5 +83,84 @@
       "logging": true,
       "health_check": true
     }
-  }
+  },
+  "tools": [
+    "create_lead",
+    "get_lead",
+    "list_leads",
+    "update_lead",
+    "delete_lead",
+    "add_leads_to_campaign",
+    "update_lead_in_campaign",
+    "get_leads_from_thread",
+    "get_tags_for_leads",
+    "assign_tag_to_lead",
+    "remove_tag_from_lead",
+    "get_linkedin_user_info",
+    "pause_lead_execution",
+    "resume_lead_execution",
+    "get_leads_from_campaign",
+    "get_tags_for_seat",
+    "create_tag",
+    "return_lead_to_campaign",
+    "get_leads_from_seat",
+    "export_all_campaigns",
+    "export_leads_from_campaign",
+    "get_campaign_info",
+    "get_campaign_list",
+    "create_lead_source",
+    "create_campaign_from_template",
+    "get_statistics",
+    "export_statistics_csv",
+    "get_step_statistics",
+    "get_all_campaigns_statistics",
+    "add_keywords_to_global_blacklist",
+    "import_keywords_to_global_blacklist_csv",
+    "add_keywords_to_blacklist",
+    "import_keywords_to_blacklist_csv",
+    "activate_inboxflare_warmup",
+    "list_all_seats_of_a_specific_user",
+    "register_new_user",
+    "get_user_information",
+    "list_all_users_as_a_whitelabel",
+    "create_seat",
+    "cancel_seat",
+    "reactivate_seat",
+    "suspend_or_unsuspend_seat",
+    "resend_email_confirmation_message",
+    "send_password_reset_email",
+    "list_users_associated_with_a_specific_seat",
+    "list_teams_under_the_users_white_label",
+    "change_a_password",
+    "get_users_sequence_templates",
+    "transfer_credits",
+    "connect_linkedin_account",
+    "disconnect_linkedin_account",
+    "create_team",
+    "create_team_role",
+    "get_team_roles",
+    "get_team_members",
+    "invite_team_member",
+    "update_team_member",
+    "sync_linkedin_messages",
+    "get_messages_from_a_specific_thread",
+    "get_conversations_by_identifiers",
+    "get_unread_conversations",
+    "get_other_conversations",
+    "get_all_conversations",
+    "get_campaign_conversations",
+    "get_messages_for_leads",
+    "mark_messages_as_seen",
+    "send_new_email",
+    "send_email_reply",
+    "send_linkedin_message",
+    "get_lead_messages",
+    "create_webhook",
+    "create_global_webhook",
+    "list_webhooks",
+    "list_global_webhooks",
+    "delete_webhook",
+    "delete_global_webhook",
+    "get_description_for_id_type"
+  ]
 }
