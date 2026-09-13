@@ -1,0 +1,3331 @@
+{
+  "schema_version": 1,
+  "source": "multilead-collection.json",
+  "source_sha256": "891a10e6a957a05eb9611544ec385c934cedaab802b3c320d0ad6504f3339caa",
+  "collection_name": "Multilead Open API",
+  "default_base_urls": {
+    "v1": "https://api.multilead.io/api/open-api/v1",
+    "v2": "https://api.multilead.io/api/open-api/v2"
+  },
+  "operation_count": 74,
+  "operations": [
+    {
+      "tool_name": "add_leads_to_a_campaign",
+      "display_name": "Add Leads to a Campaign",
+      "group": "Leads",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/campaign/:campaignId/leads",
+      "body_mode": "urlencoded",
+      "parameters": [
+        {
+          "name": "campaignId",
+          "location": "path",
+          "required": true,
+          "example": "108",
+          "description": "(Required Number) This is the ID of the campaign to which you wish to add leads."
+        },
+        {
+          "name": "profileUrl",
+          "location": "urlencoded",
+          "required": true,
+          "example": "https://www.linkedin.com/in/john-smith-marketing",
+          "description": "(Required) This is the profile URL of the lead you wish to add.",
+          "postman_type": "text"
+        },
+        {
+          "name": "email",
+          "location": "urlencoded",
+          "required": true,
+          "example": "john.smith@company.com",
+          "description": "(Required) This is the email of the lead you wish to add.",
+          "postman_type": "text"
+        },
+        {
+          "name": "firstName",
+          "location": "urlencoded",
+          "required": false,
+          "example": "John",
+          "description": "(Optional) This is the first name of the lead you wish to add.",
+          "postman_type": "text"
+        },
+        {
+          "name": "lastName",
+          "location": "urlencoded",
+          "required": false,
+          "example": "Smith",
+          "description": "(Optional) This is the last name of the lead you wish to add.",
+          "postman_type": "text"
+        },
+        {
+          "name": "occupation",
+          "location": "urlencoded",
+          "required": false,
+          "example": "Senior Marketing Manager",
+          "description": "(Optional) This is a current occupation of the lead you wish to add.",
+          "postman_type": "text"
+        },
+        {
+          "name": "phone",
+          "location": "urlencoded",
+          "required": false,
+          "example": "+38164553964",
+          "description": "(Optional) This is the phone number of the lead you wish to add.",
+          "postman_type": "text"
+        },
+        {
+          "name": "removeDbDuplicates",
+          "location": "urlencoded",
+          "required": false,
+          "example": "false",
+          "description": "(Optional) This action checks if the lead you wish to add already exists in the campaigns across all seats in the team.\nIf the \"removeDbDuplicates\": true, the lead won't be added to the campaign if they are found in any campaign across your team's seats. \nIf the \"removeDbDuplicates\": false, the lead will be added even if they already exist in any campaign across the team's seats. \nIf this parameter is not provided, the lead will not be added to the campaign if they already exist in any campaigns across the team's seats.",
+          "postman_type": "text"
+        },
+        {
+          "name": "personalizedField",
+          "location": "urlencoded",
+          "required": false,
+          "example": "random",
+          "description": "(Optional) This is an additional fields for personalization. For example: \"personalizedField\": [\"twitter\", \"linkedinPersonalEmail\"]",
+          "postman_type": "text"
+        },
+        {
+          "name": "new_field",
+          "location": "urlencoded",
+          "required": false,
+          "example": "field",
+          "description": "(Optional) This is an additional field for more information about the lead. For example: \"country\": \"Germany\"",
+          "postman_type": "text"
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This actions adds a new lead to a selected campaign. `profileUrl` or `email` are required fields in the JSON, all other fileds can be custom."
+    },
+    {
+      "tool_name": "update_lead",
+      "display_name": "Update Lead",
+      "group": "Leads",
+      "method": "PATCH",
+      "api_version": "v2",
+      "path": "/campaigns/:campaignId/leads/:leadId",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "campaignId",
+          "location": "path",
+          "required": false,
+          "example": "323"
+        },
+        {
+          "name": "leadId",
+          "location": "path",
+          "required": false,
+          "example": "21"
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action updates one or more variables for a lead in the specified campaign and LinkedIn account.\n\nThe request body must include **campaignId**, **linkedinAccountId**, and a **changedValues** object whose key–value pairs can be any built‑in or custom fields (e.g., `\"businessEmail\": \"test@company.com\"`, `\"custom-variable\": \"custom value\"`).",
+      "json_body_example": {
+        "campaignId": 312925,
+        "linkedinAccountId": 2,
+        "changedValues": {
+          "businessEmail": "john.smith@company.com",
+          "custom-variable": "custom value"
+        }
+      }
+    },
+    {
+      "tool_name": "get_leads_from_a_specific_thread",
+      "display_name": "Get Leads from a Specific Thread",
+      "group": "Leads",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/conversations/:thread/belonged_leads",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "814606",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "7",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "thread",
+          "location": "path",
+          "required": true,
+          "example": "6615475697433579520",
+          "description": "(Required)This is the ID of the thread from which you wish to retrieve the leads."
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This action retrieves leads who are part of a specific thread."
+    },
+    {
+      "tool_name": "get_tags_for_specific_leads",
+      "display_name": "Get Tags for Specific Leads",
+      "group": "Leads",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/leads/tags",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "161",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "leadIds",
+          "location": "query",
+          "required": true,
+          "example": "[22222294915]",
+          "description": "(Required) These are the IDs of leads whose tags you wish to retrieve.\n\nType: Array"
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action retrieves tags for specific leads."
+    },
+    {
+      "tool_name": "assign_a_tag_to_a_specific_lead",
+      "display_name": "Assign a Tag to a Specific Lead",
+      "group": "Leads",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/leads/:leadId/tags/:tagId",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "161",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "leadId",
+          "location": "path",
+          "required": true,
+          "example": "22222294915",
+          "description": "(Required) This is the ID of the lead to whom you wish to assign a tag."
+        },
+        {
+          "name": "tagId",
+          "location": "path",
+          "required": true,
+          "example": "68",
+          "description": "(Required) This is the ID of the tag that you wish to assign to a specific lead."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action adds a new tag to a specific lead."
+    },
+    {
+      "tool_name": "remove_a_tag_from_a_specific_lead",
+      "display_name": "Remove a Tag from a Specific Lead",
+      "group": "Leads",
+      "method": "DELETE",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/leads/:leadId/tags/:tagId",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "161",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "leadId",
+          "location": "path",
+          "required": true,
+          "example": "22222294915",
+          "description": "(Required) This is the ID of the lead from whom you wish to remove the tag."
+        },
+        {
+          "name": "tagId",
+          "location": "path",
+          "required": true,
+          "example": "68",
+          "description": "(Required) This is the ID of the tag that you wish to remove from a specific lead."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action removes a specific tag from a specific lead."
+    },
+    {
+      "tool_name": "get_linkedin_user_info",
+      "display_name": "Get LinkedIn User Info",
+      "group": "Leads",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/linkedin_users/:linkedinUserId",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "6390",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "1951",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "linkedinUserId",
+          "location": "path",
+          "required": true,
+          "example": "111195199",
+          "description": "(Required) This is the LinkedIn ID of the user for whom you wish to retrieve profile information."
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This action retrieves the LinkedIn profile information for a specific user if you previously started a conversation with them."
+    },
+    {
+      "tool_name": "pause_executing_steps_on_a_specific_lead",
+      "display_name": "Pause Executing Steps on a Specific Lead",
+      "group": "Leads",
+      "method": "PATCH",
+      "api_version": "v1",
+      "path": "/leads/:leadId/pause",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "leadId",
+          "location": "path",
+          "required": true,
+          "example": "22222302733",
+          "description": "(Required) This is the ID of the lead whom you wish to pause."
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This action pauses the execution of the steps that come next on a specific lead from a specific campaign."
+    },
+    {
+      "tool_name": "resume_executing_steps_on_a_specific_lead",
+      "display_name": "Resume Executing Steps on a Specific Lead",
+      "group": "Leads",
+      "method": "PATCH",
+      "api_version": "v1",
+      "path": "/leads/:leadId/continue",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "leadId",
+          "location": "path",
+          "required": true,
+          "example": "22222302733",
+          "description": "(Required Number) This is the ID of the lead on whom you wish the campaign to continue executing steps."
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This action resumes the execution of the steps that come next on a specific lead from a specific campaign."
+    },
+    {
+      "tool_name": "get_lead_info_from_a_specific_campaign",
+      "display_name": "Get Lead Info from a Specific Campaign",
+      "group": "Leads",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/campaigns/:campaignId/leads",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "2",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "campaignId",
+          "location": "path",
+          "required": true,
+          "example": "3",
+          "description": "(Required) This is the ID of the campaign from which you wish to get the lead info."
+        },
+        {
+          "name": "search",
+          "location": "query",
+          "required": false,
+          "example": "%C3%A9tape%22n%27est",
+          "description": "(Optional) This action retrieves leads whose fullName, firstName, lastName, email, company, headline, occupation, currentCompany, or business email found by the platform matches the search parameter.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByVerifiedEmails",
+          "location": "query",
+          "required": false,
+          "example": "false",
+          "description": "(Optional) This action retrieves leads with verified emails by the platform. Ensure 'filterByVerifiedEmails' is True and 'filterByNotVerifiedEmails' is False for it to work; otherwise, all leads will be retrieved.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByNotVerifiedEmails",
+          "location": "query",
+          "required": false,
+          "example": "true",
+          "description": "(Optional) This action retrieves leads whose emails aren't verified by the platform. Ensure 'filterByNotVerifiedEmails' is True and 'filterByVerifiedEmails' is False for it to work; otherwise, nall leads will be retrieved.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByConnectionDegree",
+          "location": "query",
+          "required": false,
+          "example": "[2]",
+          "description": "(Optional) This action retrieves additional statuses in combination with ‘filterByStatus’. It can be used only when the ‘filterByStatus’ value is set to 4. For more information, check the ‘filterByStatus’ parameter description.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByStatus",
+          "location": "query",
+          "required": false,
+          "example": "[4]",
+          "description": "(Optional) This action retrieves leads with the specific status inside the campaign. Possible statuses and corresponding values are:\n- [1] Discovered;\n- [2] Connection pending;\n- [3] Connected, not replied;\n- Or, combine these values (e.g. [1,2]. In this case, you export leads’ statuses that match ANY value). \nYou can export 3 additional statuses in combination with the ‘filterByConnectionDegree’ parameter. \n- filterByStatus = [4], filterByConnectionDegree = [1] - replied, connected;\n- filterByStatus = [4], filterByConnectionDegree = [2, 3] - replied, not connected;\n- filterByStatus = [4], filterByConnectionDegree does not exist - replied.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByCurrentStep",
+          "location": "query",
+          "required": false,
+          "example": "[13290078]",
+          "description": "(Optional) This action retrieves leads from the campaign who are on specific steps.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByName",
+          "location": "query",
+          "required": false,
+          "example": "%C3%A9tape%22n%27est",
+          "description": "(Optional) This action retrieves leads whose names contain the name you specify.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByCompany",
+          "location": "query",
+          "required": false,
+          "example": "123",
+          "description": "(Optional) This action retrieves leads whose company contains a company name you specify.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByOccupation",
+          "location": "query",
+          "required": false,
+          "example": "123",
+          "description": "(Optional) This action retrieves leads whose occupation contains the parameter you specify.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByHeadline",
+          "location": "query",
+          "required": false,
+          "example": "123",
+          "description": "(Optional) This action retrieves leads whose headline contains the parameter you specify.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByOutOfOffice",
+          "location": "query",
+          "required": false,
+          "example": "false",
+          "description": "(Optional) This action retrieves leads who have ‘Out of office’ status.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByStepChangeTimestamp",
+          "location": "query",
+          "required": false,
+          "example": "123",
+          "description": "(Optional) This action retrieves leads whose ‘stepChangeTimestamp’ parameter is greater than the value you provide.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterBySelectedLeads",
+          "location": "query",
+          "required": false,
+          "example": "[123,1234]",
+          "description": "(Optional) This parameter retrieves specific leads and finds them through their id's you specify here.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "limit",
+          "location": "query",
+          "required": false,
+          "example": "30",
+          "description": "(Optional) This parameter limits the number of results that you wish to retrieve. If not specified default value is 30."
+        },
+        {
+          "name": "offset",
+          "location": "query",
+          "required": false,
+          "example": "0",
+          "description": "(Optional) This parameter specifies a starting point for retrieving results from a dataset. If not specified, default value is 0."
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This action retrieves specific leads from a chosen campaign that meet certain filter criteria.\n\nThere are **7 groups** of filters:\n\n1\\. **Advanced filters**: filterByName, filterByCompany, filterByOccupation, and filterByHeadline,\n\n2\\. **Filter leads by status**: filterByStatus, filterByConnectionDegree, and filterByOutOfOffice,\n\n3\\. **Filter by verified emails**: filterByNotVerifiedEmails, and filterByVerifiedEmails,\n\n4\\. **Filter by current step**: filterByCurrentStep,\n\n5\\. **Filter by selected leads:** filterBySelectedLeads,\n\n6\\. **Filter by step change timestamp**: filterByStepChangeTimestamp,\n\n7\\. **Search** (general filter).\n\n**Filters** **within the same group** operate with the **OR** rule, meaning the platform retrieves leads who match at least one specified filter. For example, if you provide ‘filterByName’ and ‘filterByCompany’ from the Advanced Filters group, the platform will retrieve leads who match either ‘filterByName’ or ‘filterByCompany’.\n\nHowever, **filters** **from two different groups** work with the **AND** rule, meaning the platform retrieves leads who satisfy both groups. For example, if you provide ‘filterByName’ from the ‘Advanced Filters’ and ‘filterByVerifiedEmails’ from the ‘Filter by verified emails’, the platform will retrieve leads that match both filters."
+    },
+    {
+      "tool_name": "get_tags_for_a_specific_seat",
+      "display_name": "Get Tags for a Specific Seat",
+      "group": "Leads",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/tags",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "2",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action retrieves all tags from a specific seat."
+    },
+    {
+      "tool_name": "create_tag",
+      "display_name": "Create Tag",
+      "group": "Leads",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/tags",
+      "body_mode": "urlencoded",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1030",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "716",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "tag",
+          "location": "urlencoded",
+          "required": false,
+          "example": "test12345",
+          "postman_type": "text"
+        },
+        {
+          "name": "color",
+          "location": "urlencoded",
+          "required": false,
+          "example": "orange",
+          "postman_type": "text"
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action creates a tag for a specific seat."
+    },
+    {
+      "tool_name": "return_lead_to_a_campaign",
+      "display_name": "Return Lead to a Campaign",
+      "group": "Leads",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/leads/:leadId/change_campaign",
+      "body_mode": "formdata",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "2",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "3",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "leadId",
+          "location": "path",
+          "required": true,
+          "example": "22222302733",
+          "description": "(Required) This is the ID of the lead whom you wish to return to a specific campaign."
+        },
+        {
+          "name": "campaignId",
+          "location": "formdata",
+          "required": true,
+          "example": "162678",
+          "description": "required: true, description: This is the ID of the campaign to which you wish to return the lead.",
+          "postman_type": "text"
+        },
+        {
+          "name": "step",
+          "location": "formdata",
+          "required": true,
+          "example": "22631815",
+          "description": "required: true, description: This is the step of the campaign to which you wish to return the lead.",
+          "postman_type": "text"
+        },
+        {
+          "name": "doTaskAt",
+          "location": "formdata",
+          "required": true,
+          "example": "1687862280000",
+          "description": "required: false, description: This is the timestamp for when to schedule your lead to be returned to the specific step of the campaign.",
+          "postman_type": "text"
+        }
+      ],
+      "response_media_types": [],
+      "description": "This action returns a specific lead to a specific campaign.\n\nThis action will happen immediately unless you schedule a specific time when you wish the lead to be returned to the campaign."
+    },
+    {
+      "tool_name": "get_leads_info_from_a_specific_seat",
+      "display_name": "Get Leads Info from a Specific Seat",
+      "group": "Leads",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/leads",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": false,
+          "example": "1"
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": false,
+          "example": "2"
+        },
+        {
+          "name": "search",
+          "location": "query",
+          "required": false,
+          "example": "%C3%A9tape%22n%27est",
+          "description": "(Optional) This action retrieves leads whose fullName, firstName, lastName, email, company, headline, occupation, currentCompany, or business email found by the platform matches the search parameter.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByVerifiedEmails",
+          "location": "query",
+          "required": false,
+          "example": "true",
+          "description": "(Optional) This action retrieves leads with verified emails by the platform. Ensure 'filterByVerifiedEmails' is true and 'filterByNotVerifiedEmails' is false for it to work; otherwise, all leads will be retrieved.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByNotVerifiedEmails",
+          "location": "query",
+          "required": false,
+          "example": "true",
+          "description": "(Optional) This action retrieves leads whose emails aren't verified by the platform. Ensure 'filterByNotVerifiedEmails' is true and 'filterByVerifiedEmails' is false for it to work; otherwise, all leads will be retrieved.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByStatus",
+          "location": "query",
+          "required": false,
+          "example": "[4]",
+          "description": "(Optional) This action retrieves leads with the specific status inside the campaign. Possible statuses and corresponding values are:\n- [1] Discovered;\n- [2] Connection pending;\n- [3] Connected, not replied;\n- Or, combine these values (e.g. [1,2]. In this case, you export leads’ statuses that match ANY value). \nYou can export 3 additional statuses in combination with the ‘filterByConnectionDegree’ parameter. \n- filterByStatus = [4], filterByConnectionDegree = [1] - replied, connected;\n- filterByStatus = [4], filterByConnectionDegree = [2, 3] - replied, not connected;\n- filterByStatus = [4], filterByConnectionDegree does not exist - replied.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByConnectionDegree",
+          "location": "query",
+          "required": false,
+          "example": "[2]",
+          "description": "(Optional) This action retrieves additional statuses in combination with ‘filterByStatus’. It can be used only when the ‘filterByStatus’ value is set to 4. For more information, check the ‘filterByStatus’ parameter description.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByName",
+          "location": "query",
+          "required": false,
+          "example": "%C3%A9tape%22n%27est",
+          "description": "(Optional) This action retrieves leads whose names contain the name you specify.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByCompany",
+          "location": "query",
+          "required": false,
+          "example": "123",
+          "description": "(Optional) This action retrieves leads whose company contains a company name you specify.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByOccupation",
+          "location": "query",
+          "required": false,
+          "example": "123",
+          "description": "(Optional) This action retrieves leads whose occupation contains the parameter you specify.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByHeadline",
+          "location": "query",
+          "required": false,
+          "example": "123",
+          "description": "(Optional) This action retrieves leads whose headline contains the parameter you specify.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByOutOfOffice",
+          "location": "query",
+          "required": false,
+          "example": "false",
+          "description": "(Optional) This action retrieves leads who have ‘Out of office’ status.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterByStepChangeTimestamp",
+          "location": "query",
+          "required": false,
+          "example": "123",
+          "description": "(Optional) This action retrieves leads whose ‘stepChangeTimestamp’ parameter is greater than the value you provide.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "filterBySelectedLeads",
+          "location": "query",
+          "required": false,
+          "example": "[1125,1126,1127]",
+          "description": "(Optional) This parameter retrieves specific leads and finds them through their id's you specify here.",
+          "postman_type": "text",
+          "disabled_in_example": true
+        },
+        {
+          "name": "limit",
+          "location": "query",
+          "required": false,
+          "example": "30",
+          "description": "(Optional) This parameter limits the number of results that you wish to retrieve. If not specified default value is 30.",
+          "disabled_in_example": true
+        },
+        {
+          "name": "offset",
+          "location": "query",
+          "required": false,
+          "example": "0",
+          "description": "(Optional) This parameter specifies a starting point for retrieving results from a dataset. If not specified, default value is 0.",
+          "disabled_in_example": true
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action retrieves specific leads from a chosen seat that meet certain filter criteria.\n\nThere are **6 groups** of filters:\n\n1\\. **Advanced filters**: filterByName, filterByCompany, filterByOccupation, and filterByHeadline,\n\n2\\. **Filter leads by status**: filterByStatus, filterByConnectionDegree, and filterByOutOfOffice,\n\n3\\. **Filter by verified emails**: filterByNotVerifiedEmails, and filterByVerifiedEmails,\n\n4\\. **Filter by selected leads:** filterBySelectedLeads,\n\n5\\. **Filter by step change timestamp**: filterByStepChangeTimestamp,\n\n6\\. **Search** (general filter).\n\n**Filters** **within the same group** operate with the **OR** rule, meaning the platform retrieves leads who match at least one specified filter. For example, if you provide ‘filterByName’ and ‘filterByCompany’ from the Advanced Filters group, the platform will retrieve leads who match either ‘filterByName’ or ‘filterByCompany’.\n\nHowever, **filters** **from two different groups** work with the **AND** rule, meaning the platform retrieves leads who satisfy both groups. For example, if you provide ‘filterByName’ from the ‘Advanced Filters’ and ‘filterByVerifiedEmails’ from the ‘Filter by verified emails’, the platform will retrieve leads that match both filters."
+    },
+    {
+      "tool_name": "export_all_campaigns",
+      "display_name": "Export All Campaigns",
+      "group": "Campaigns",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/campaigns/export",
+      "body_mode": "urlencoded",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "14704",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "16765",
+          "description": "(Required) This is the ID of the seat that the campaigns in question are part of."
+        },
+        {
+          "name": "recipientEmail",
+          "location": "urlencoded",
+          "required": true,
+          "example": "john.smith@company.com",
+          "description": "(Required) This is the email you choose to receive the download link to your exported campaigns.",
+          "postman_type": "text"
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action exports all campaigns in a . CSV format."
+    },
+    {
+      "tool_name": "export_leads_from_a_specific_campaign",
+      "display_name": "Export Leads from a Specific Campaign",
+      "group": "Campaigns",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/campaigns/:campaignId/export",
+      "body_mode": "urlencoded",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "8",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "campaignId",
+          "location": "path",
+          "required": true,
+          "example": "45",
+          "description": "(Required) This is the ID of the campaign that you wish to export."
+        },
+        {
+          "name": "search",
+          "location": "query",
+          "required": false,
+          "example": "john",
+          "description": "(Optional) This action export leads whose fullName, firstName, lastName, email, company, headline, occupation, currentCompany, or business email found by the platform matches the search parameter."
+        },
+        {
+          "name": "filterByVerifiedEmails",
+          "location": "query",
+          "required": false,
+          "example": "false",
+          "description": "(Optional) This action exports leads with verified emails by the platform. Ensure 'filterByVerifiedEmails' is true and 'filterByNotVerifiedEmails' is false for it to work; otherwise, all leads will be exported."
+        },
+        {
+          "name": "filterByNotVerifiedEmails",
+          "location": "query",
+          "required": false,
+          "example": "true",
+          "description": "(Optional) This action exports leads whose emails aren't verified by the platform. Ensure 'filterByNotVerifiedEmails' is True and 'filterByVerifiedEmails' is False for it to work; otherwise, all leads will be exported."
+        },
+        {
+          "name": "filterByStatus",
+          "location": "query",
+          "required": false,
+          "example": "[1,2,3,4]",
+          "description": "(Optional) This action exports leads with the specific status inside the campaign. Possible statuses and corresponding values are:\n- [1] Discovered;\n- [2] Connection pending;\n- [3] Connected, not replied;\n- Or, combine these values (e.g. [1,2]. In this case, you export leads’ statuses that match ANY value). \nYou can export 3 additional statuses in combination with the ‘filterByConnectionDegree’ parameter. \n- filterByStatus = [4], filterByConnectionDegree = [1] - replied, connected;\n- filterByStatus = [4], filterByConnectionDegree = [2, 3] - replied, not connected;\n- filterByStatus = [4], filterByConnectionDegree does not exist - replied."
+        },
+        {
+          "name": "filterByConnectionDegree",
+          "location": "query",
+          "required": false,
+          "example": "[2]",
+          "description": "(Optional) This action exports additional statuses in combination with ‘filterByStatus’. It can be used only when the ‘filterByStatus’ value is set to 4. For more information, check the ‘filterByStatus’ parameter description."
+        },
+        {
+          "name": "filterByCurrentStep",
+          "location": "query",
+          "required": false,
+          "example": "[13290078]",
+          "description": "(Optional) This action exports leads from the campaign who are on specific steps."
+        },
+        {
+          "name": "filterBySelectedLeads",
+          "location": "query",
+          "required": false,
+          "example": "[22222414927]",
+          "description": "(Optional) This action exports leads whose IDs match the ones you specify."
+        },
+        {
+          "name": "filterByName",
+          "location": "query",
+          "required": false,
+          "example": "john",
+          "description": "(Optional) This action exports leads whose names contain the name you specify."
+        },
+        {
+          "name": "filterByCompany",
+          "location": "query",
+          "required": false,
+          "example": "123",
+          "description": "(Optional) This action exports leads whose company contains a company name you specify."
+        },
+        {
+          "name": "filterByOccupation",
+          "location": "query",
+          "required": false,
+          "example": "123",
+          "description": "(Optional) This action exports leads whose occupation contains the parameter you specify."
+        },
+        {
+          "name": "filterByHeadline",
+          "location": "query",
+          "required": false,
+          "example": "123",
+          "description": "(Optional) This action exports leads whose headline contains the parameter you specify."
+        },
+        {
+          "name": "filterByOutOfOffice",
+          "location": "query",
+          "required": false,
+          "example": "false",
+          "description": "(Optional) This action exports leads who have ‘Out of office’ status."
+        },
+        {
+          "name": "filterByStepChangeTimestamp",
+          "location": "query",
+          "required": false,
+          "example": "123",
+          "description": "(Optional) This action exports leads whose ‘stepChangeTimestamp’ parameter is greater than the value you provide."
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/csv"
+      ],
+      "description": "This action exports specific leads from a chosen campaign that meet certain filter criteria.\n\nThere are **7 groups** of filters:\n\n1. **Advanced filters**: filterByName, filterByCompany, filterByOccupation, and filterByHeadline,\n    \n2. **Filter leads by status**: filterByStatus, filterByConnectionDegree, and filterByOutOfOffice,\n    \n3. **Filter by verified emails**: filterByNotVerifiedEmails, and filterByVerifiedEmails,\n    \n4. **Filter by current step**: filterByCurrentStep,\n    \n5. **Filter by selected leads**: filterBySelectedLeads,\n    \n6. **Filter by step change timestamp**: filterByStepChangeTimestamp,\n    \n7. **Search** (general Filter).\n    \n\n**Filters within the same group** operate with the **OR** rule, meaning the platform exports leads who match at least one specified Filter. For example, if you provide ‘filterByName’ and ‘filterByCompany’ from the Advanced Filters group, the platform will export leads who match either ‘filterByName’ or ‘filterByCompany.’\n\nHowever, **filters from two different groups** work with the **AND** rule, meaning the platform exports leads who satisfy both groups. For example, if you provide ‘filterByName’ from the Advanced Filters and ‘filterByVerifiedEmails’ from the Filter by verified emails, the platform will export leads that match both filters."
+    },
+    {
+      "tool_name": "get_campaign_info",
+      "display_name": "Get Campaign Info",
+      "group": "Campaigns",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/campaigns/:campaignId/details",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "7",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "campaignId",
+          "location": "path",
+          "required": true,
+          "example": "69",
+          "description": "(Required) This is the ID of the campaign in question."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action retrieves information regarding a specific campaign."
+    },
+    {
+      "tool_name": "get_campaign_list",
+      "display_name": "Get Campaign List",
+      "group": "Campaigns",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/campaigns",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "12",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "campaignState",
+          "location": "query",
+          "required": false,
+          "example": "2",
+          "description": "(Optional) Choose the campaign status.\n\nType: Number\n\nDefault value is set to: 1\n\nexport enum CampaignStateEnum {\n  ACTIVE = 1,\n  DRAFT = 2,\n  ARCHIVED = 3\n}",
+          "disabled_in_example": true
+        },
+        {
+          "name": "sortOrder",
+          "location": "query",
+          "required": false,
+          "example": "DESC",
+          "description": "(Optional) Choose how you wish the query to be sorted.\n\n\nType: String \n\nAccepted values: `ASC`, `DESC`",
+          "disabled_in_example": true
+        },
+        {
+          "name": "sortColumn",
+          "location": "query",
+          "required": false,
+          "example": "name",
+          "description": "(Optional) Choose a column by which you wish to sort.\n\nType: String\n\nAccepted values: isActive, name, createdAt",
+          "disabled_in_example": true
+        },
+        {
+          "name": "limit",
+          "location": "query",
+          "required": false,
+          "example": "2",
+          "description": "(Optional) Limit the number of results that you wish to retrieve.\n\nType: Number\n\nDefault value is set to: 30",
+          "disabled_in_example": true
+        },
+        {
+          "name": "offset",
+          "location": "query",
+          "required": false,
+          "example": "1",
+          "description": "(Optional) Choose the position in the dataset of a record in question.\n\nType: Number\n\nDefault value is set to: 0",
+          "disabled_in_example": true
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This action retrieves the list of all campaigns."
+    },
+    {
+      "tool_name": "create_lead_source_link_it_to_a_campaign",
+      "display_name": "Create Lead Source & Link It To A Campaign",
+      "group": "Campaigns",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/lead_sources",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is the ID of the user who owns the seat that contains the campaign where you want to send this lead source."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is the ID of the seat where the desired campaign is located."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action creates a lead source and connects it to your desired campaign. To authenticate, use API key of the user who is associated with the seat where the desired campaign is located.\n\nRequired params for this endpoint are:\n\n- userId - This is the ID of the user who owns the seat that contains the campaign where you want to send this lead source.\n    \n- accountId - This is the ID of the seat where the desired campaign is located.\n    \n\nWhen sending a request, make sure your body contains required leadSources array and provide exacly one lead source.",
+      "json_body_example": {
+        "leadSources": [
+          {
+            "campaignId": 1,
+            "leadSourceUrl": "https://www.linkedin.com/sales/search/people?companyExcluded=LinkedIn%3A1337%2CMicrosoft%3A1035&companyTimeScope=CURRENT&doFetchHeroCard=false&geoIncluded=103323778&logHistory=true&logId=8582815403&page=1&relationship=S%2CO&rsLogId=144843257&searchSessionId=R9%2Bd9QKnR4qMsXhrTMNJrA%3D%3D&titleIncluded=SDR%2CSales%2520Development%2520Manager%3A1617%2CSales%2520Development%2520Representative%3A9625%2CSales%2520Development%2520Specialist%3A1546&titleTimeScope=CURRENT",
+            "leadSourceType": "SALES_NAVIGATOR",
+            "dashboard": 2,
+            "autoReuse": 1,
+            "autoReuseInterval": 100
+          }
+        ]
+      }
+    },
+    {
+      "tool_name": "create_campaign_from_a_sequence_template",
+      "display_name": "Create Campaign From A Sequence Template",
+      "group": "Campaigns",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/campaigns",
+      "body_mode": "urlencoded",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "6407",
+          "description": "(Required) This is the ID of the user who owns the seat where the campaign will be created and whose smart sequence you want to use."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "19156",
+          "description": "(Required) This is the ID of the seat where the campaign will be created."
+        },
+        {
+          "name": "name",
+          "location": "urlencoded",
+          "required": true,
+          "example": "Campaign #1",
+          "description": "(Required) This is the campaign's name.",
+          "postman_type": "text"
+        },
+        {
+          "name": "templateId",
+          "location": "urlencoded",
+          "required": true,
+          "example": "275",
+          "description": "(Required) This is the ID of the sequence template, and it's found in user's template library.",
+          "postman_type": "text"
+        },
+        {
+          "name": "isFirstConnection",
+          "location": "urlencoded",
+          "required": true,
+          "example": "false",
+          "description": "(Required) This action determines wether you want to include the 1st-degree connection leads from your lead source.",
+          "postman_type": "text"
+        },
+        {
+          "name": "getPersonalInfo",
+          "location": "urlencoded",
+          "required": true,
+          "example": "true",
+          "description": "(Required) This action determines wether you want to retreive your leads' personal info within your campaign settings.",
+          "postman_type": "text"
+        },
+        {
+          "name": "enableOpenRate",
+          "location": "urlencoded",
+          "required": true,
+          "example": "true",
+          "description": "(Required) This action determines whether you want to track email open rate or not in your campaign settings.",
+          "postman_type": "text"
+        },
+        {
+          "name": "enableClickRate",
+          "location": "urlencoded",
+          "required": true,
+          "example": "false",
+          "description": "(Required) This action determines whether you want to track email click rate or not in your campaign settings.",
+          "postman_type": "text"
+        },
+        {
+          "name": "onlyPremium",
+          "location": "urlencoded",
+          "required": false,
+          "example": "false",
+          "description": "(Optional) This action determines whether your want to discover and connect with only LinkedIn Premium accounts to narrow your search.",
+          "postman_type": "text"
+        },
+        {
+          "name": "onlyDiscoverLeads",
+          "location": "urlencoded",
+          "required": false,
+          "example": "false",
+          "description": "(Optional) This action determines whether you want to discover your leads only or not.",
+          "postman_type": "text"
+        },
+        {
+          "name": "onlyUniqueLeads",
+          "location": "urlencoded",
+          "required": false,
+          "example": "false",
+          "description": "(Optional) This action determines whether you wish to reach out only to leads user hasn't reached before in your campaign settings.",
+          "postman_type": "text"
+        },
+        {
+          "name": "includeGloballyTargetedLeads",
+          "location": "urlencoded",
+          "required": false,
+          "example": "true",
+          "description": "(Optional) This action determines whether you want to include leads that are present in other campaigns across your entire team, including all seats.",
+          "postman_type": "text"
+        },
+        {
+          "name": "noPendingConnections",
+          "location": "urlencoded",
+          "required": false,
+          "example": "false",
+          "description": "(Optional) This action determines wether you want to leave connections pending in your campaign settings.",
+          "postman_type": "text"
+        },
+        {
+          "name": "additionalFields",
+          "location": "urlencoded",
+          "required": false,
+          "example": "[]",
+          "description": "(Optional) This action determines leads' variables for your message.  The value can be: title, status, company, lastName, firstName, profileUrl",
+          "postman_type": "text"
+        },
+        {
+          "name": "startAt",
+          "location": "urlencoded",
+          "required": false,
+          "example": "0",
+          "postman_type": "text"
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This endpoint creates campaign from users' saved sequences (sequence template). It can only be used for URL-based campaigns.  \nOnce created, the campaigns i live immediately."
+    },
+    {
+      "tool_name": "list_all_seats_of_a_specific_user",
+      "display_name": "List All Seats of a Specific User",
+      "group": "Users & Seats",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/accounts",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "search",
+          "location": "query",
+          "required": false,
+          "example": "John Smith"
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action provides information based on your Team Management role:\n\n**\\- For team members:** Retrieves information about the seats you've been invited to manage or own.  \n**\\- For co-workers:** Retrieves information about the seats that belong to the teams you manage.  \n**\\- For platform admins:** Retrieves information about the seats linked to the teams you own."
+    },
+    {
+      "tool_name": "register_new_user",
+      "display_name": "Register New User",
+      "group": "Users & Seats",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/register",
+      "body_mode": "urlencoded",
+      "parameters": [
+        {
+          "name": "email",
+          "location": "urlencoded",
+          "required": true,
+          "example": "john.smith@company.com",
+          "description": "(Required) This is our platform's email.",
+          "postman_type": "text"
+        },
+        {
+          "name": "password",
+          "location": "urlencoded",
+          "required": true,
+          "example": "strong_password",
+          "description": "(Required) This is our platform's password.",
+          "postman_type": "text"
+        },
+        {
+          "name": "fullName",
+          "location": "urlencoded",
+          "required": true,
+          "example": "John Smith",
+          "description": "(Required) This is our platform's display name.",
+          "postman_type": "text"
+        },
+        {
+          "name": "phone",
+          "location": "urlencoded",
+          "required": false,
+          "example": "+3816423416",
+          "description": "(Optional) This is your phone number",
+          "postman_type": "text"
+        },
+        {
+          "name": "whitelabelId",
+          "location": "urlencoded",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is the whitelabel ID.",
+          "postman_type": "text"
+        },
+        {
+          "name": "invitationId",
+          "location": "urlencoded",
+          "required": false,
+          "example": "0699173b-d11c-4bc8-9ea0-826f6f949538",
+          "description": "(Optional) This is option and can be used for the save secured registration",
+          "postman_type": "text"
+        },
+        {
+          "name": "skipConfirmationEmail",
+          "location": "urlencoded",
+          "required": false,
+          "example": "false",
+          "description": "(Optional) This parameter controls whether you receive the confirmation email. Set the value to 'true' to disable receiving a confirmation email. Keep the value 'false' or leave it empty to enable it.",
+          "postman_type": "text"
+        },
+        {
+          "name": "skipTeamCreation",
+          "location": "urlencoded",
+          "required": false,
+          "example": "false",
+          "description": "(Optional) Skips creating of the initial team, team will need to be created manually or user would need to be invited to another team manually",
+          "postman_type": "text",
+          "disabled_in_example": true
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action registers a new user."
+    },
+    {
+      "tool_name": "get_user_information",
+      "display_name": "Get User Information",
+      "group": "Users & Seats",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/user/me",
+      "body_mode": "none",
+      "parameters": [],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action retrieves all information on the authorized user."
+    },
+    {
+      "tool_name": "list_all_users_as_a_whitelabel",
+      "display_name": "List All Users as a Whitelabel",
+      "group": "Users & Seats",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "limit",
+          "location": "query",
+          "required": false,
+          "example": "10",
+          "description": "(Optional) Limit the number of results that you wish to retrieve.\n\nType: Number\n\nDefault value is set to: 30"
+        },
+        {
+          "name": "offset",
+          "location": "query",
+          "required": false,
+          "example": "5",
+          "description": "(Optional) Choose the position in the dataset of a record in question.\n\nType: Number\n\nDefault value is set to: 0"
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "As a whitelabel, this action retrieves the list of all your users."
+    },
+    {
+      "tool_name": "create_seat",
+      "display_name": "Create Seat",
+      "group": "Users & Seats",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/register",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": false,
+          "example": "93"
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action creates a new seat within a specific team.",
+      "json_body_example": {
+        "planId": 1,
+        "fullName": "John Smith",
+        "startUTCTime": "08:00",
+        "endUTCTime": "16:00",
+        "timeZone": "Europe/Belgrade",
+        "teamId": 1,
+        "whitelabelId": 1
+      }
+    },
+    {
+      "tool_name": "cancel_seat",
+      "display_name": "Cancel Seat",
+      "group": "Users & Seats",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/subscriptions/accounts/:accountId",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": false,
+          "example": "1"
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": false,
+          "example": "1005"
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action cancels a specific seat within a specific team.",
+      "json_body_example": {
+        "reason": "Example reason why the seat is being cancelled"
+      }
+    },
+    {
+      "tool_name": "reactivate_seat",
+      "display_name": "Reactivate Seat",
+      "group": "Users & Seats",
+      "method": "PUT",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/reactivate",
+      "body_mode": "urlencoded",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": false,
+          "example": "1"
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": false,
+          "example": "1005"
+        },
+        {
+          "name": "proxyCountry",
+          "location": "urlencoded",
+          "required": false,
+          "example": "us",
+          "postman_type": "text"
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action reactivates a specific inactive seat within a specific team."
+    },
+    {
+      "tool_name": "suspend_unsuspend_seat",
+      "display_name": "Suspend/Unsuspend Seat",
+      "group": "Users & Seats",
+      "method": "PUT",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/suspend",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": false,
+          "example": "1"
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action suspends or unsuspends a specific seat within a specific team.",
+      "json_body_example": {
+        "accountId": 1005,
+        "suspended": false
+      }
+    },
+    {
+      "tool_name": "resend_email_confirmation_message",
+      "display_name": "Resend Email Confirmation Message",
+      "group": "Users & Seats",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/resend_confirmation",
+      "body_mode": "formdata",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "364",
+          "description": "(Required)This is your User ID."
+        },
+        {
+          "name": "email",
+          "location": "formdata",
+          "required": true,
+          "example": "john.smith@company.com",
+          "description": "(Required) This is the address that receives confirmation email.",
+          "postman_type": "text"
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action resends an email confirmation message to the user's email and allows them to confirm their email address."
+    },
+    {
+      "tool_name": "send_password_reset_email",
+      "display_name": "Send Password Reset Email",
+      "group": "Users & Seats",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/reset_password_email",
+      "body_mode": "formdata",
+      "parameters": [
+        {
+          "name": "email",
+          "location": "formdata",
+          "required": true,
+          "example": "john.smith@company.com",
+          "description": "(Required) This is the address that receives confirmation email.",
+          "postman_type": "text"
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action initializes the user's password reset and sends a password reset email."
+    },
+    {
+      "tool_name": "list_users_associated_with_a_specific_seat",
+      "display_name": "List Users Associated With a Specific Seat",
+      "group": "Users & Seats",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/get_associated_users",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "364",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "2",
+          "description": "(Required) This is the seat ID for which you want to retrieve the associated users."
+        },
+        {
+          "name": "limit",
+          "location": "query",
+          "required": false,
+          "example": "30",
+          "description": "(Optional) This parameter limits the number of results that you wish to retrieve. If not specified, the default value is 30."
+        },
+        {
+          "name": "offset",
+          "location": "query",
+          "required": false,
+          "example": "0",
+          "description": "(Optional) This parameter specifies a starting point for retrieving results from a dataset. If not specified, the default value is 0."
+        },
+        {
+          "name": "search",
+          "location": "query",
+          "required": false,
+          "example": "john",
+          "description": "(Optional) This action retrieves users associated with the seat whose email or fullName contains the provided parameter."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action retrieves all users associated with the chosen seat in any way. The way they are related to a seat determines their user types:\n\n1. **Team Member**: Users who are invited to the team and assigned a seat with specific roles and permissions.\n2. **Coworker**: Users who manage a team that owns a specific seat.\n3. **Platform Admin**: Users who manage the entire platform to which the specific seat belongs."
+    },
+    {
+      "tool_name": "list_teams_under_the_user_s_white_label",
+      "display_name": "List Teams Under the User's White label",
+      "group": "Users & Seats",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/teams",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "limit",
+          "location": "query",
+          "required": false,
+          "example": "20",
+          "description": "(Optional) This parameter limits the number of results that you wish to retrieve. If not specified, the default value is 30.",
+          "postman_type": "text",
+          "disabled_in_example": true
+        },
+        {
+          "name": "offset",
+          "location": "query",
+          "required": false,
+          "example": "0",
+          "description": "(Optional) This parameter specifies a starting point for retrieving results from a dataset. If not specified, the default value is 0.",
+          "postman_type": "text",
+          "disabled_in_example": true
+        },
+        {
+          "name": "search",
+          "location": "query",
+          "required": false,
+          "example": "123",
+          "description": "(Optional) This action retrieves teams whose name contains a provided parameter.",
+          "disabled_in_example": true
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action retrieves all teams under one platform (White label). The user who runs this endpoint must be the platform admin."
+    },
+    {
+      "tool_name": "change_a_password",
+      "display_name": "Change A Password",
+      "group": "Users & Seats",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/change_password",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1575",
+          "description": "(Required) This is the ID of the specific user whose password you want to change."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action changes the password for a specific user. Regular users can only change their own password and platform co-owners can change the password for all users within their platform.",
+      "json_body_example": {
+        "newPassword": "strong_password"
+      }
+    },
+    {
+      "tool_name": "get_user_s_sequence_templates",
+      "display_name": "Get User's Sequence Templates",
+      "group": "Users & Seats",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/teams/:teamId/saved_sequences",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is the ID of the user whose saved sequences you want to retrieve."
+        },
+        {
+          "name": "teamId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is the ID of the team that the user is a part of."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action retrieves all sequence templates (saved sequences) from a user who is a part of certain team. In other words, with this endpoint you'll get saved sequence template ID which you can use in \"Create Campaign From A Sequence Template\" endpoint. To authenticate, use API key of the user who belongs to a certain team.\n\nRequired params for this endpoint are:\n\n- userId - This is the ID of the user whose saved sequences you want to retrieve.\n    \n- teamId - This is the ID of the team that the user is a part of."
+    },
+    {
+      "tool_name": "transfer_credits",
+      "display_name": "Transfer Credits",
+      "group": "Users & Seats",
+      "method": "POST",
+      "api_version": "v2",
+      "path": "/users/:userId/transfer_credits",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required Number) This is the ID of the user from whom you wish to transfer credits"
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action transfers credits from the authenticated user to a specified destination user.",
+      "json_body_example": {
+        "destinationUserId": 35048,
+        "quantity": 3
+      },
+      "source_warnings": [
+        "collection_example_uses_localhost"
+      ]
+    },
+    {
+      "tool_name": "get_messages_from_a_specific_thread",
+      "display_name": "Get Messages from a Specific Thread",
+      "group": "Conversations & Messages",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/conversations/threads",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "13",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "threads",
+          "location": "query",
+          "required": true,
+          "example": "[\"2-MTc1YzBmYmUtMzhkNC00NzBjLWE5MWItZDU3ZGU1MGFmYjA4XzAxMA==\",\"2-YWE5YjllMDEtMDFiOS00NjJjLTkyOTQtYmMwNWExY2U4YjdmXzAxMw==\",\"2-MGZiZWRlM2MtZjBhOS00MzZhLTlhMTAtZjA3YjAyZmE2MTczXzAxMA==\",\"2-MDkyMjI0YzUtZmU2OS00ZjEwLTlmZWEtYjg2Y2Y3OTRiZDQxXzAxMA==\",\"2-YjlhZDY4MDYtNDk5Yy00MWViLWExMmUtNzEzY2FmMzIzMzJmXzAxMA==\",\"2-MjAwYjhjYjktYmY2OS00YjYwLWJiMjctNjUwZDMwOTlkOTFiXzAxMA==\",\"2-NmIzZjU4MWQtMTc5YS00MDkxLWEwNTAtNDU1NGIwOTFiMjBiXzAxMA==\",\"2-MDE3MTY5MmEtOTg0Ny00OWMxLWJjZTEtZjY2YjlhMDRmYmM2XzAxMA==\",\"2-MWViODdkMWEtYzU0Yi00NDAzLTkwOTMtODM0ODk3ZWNjNTY1XzAxMA==\",\"2-MTUwZDljMmMtYTc2NC00NWJiLThkYzMtYTAxNmE0N2NiY2IzXzAxMA==\",\"2-Y2QyMDE3NmUtODBhYS00ZjhiLTljZDUtNTRkMTM3YTk1OWFmXzAxMA==\",\"2-ZDgzNjM5ZTUtZmFhZS00ZjNmLWIwYTUtNTM4M2NlZDUwODIxXzAxMw==\",\"2-ZjFjMWIzY2UtN2U5Mi00ZWIwLTkzMGQtYzViM2VkOTQ5MzYyXzAxMA==\",\"2-YjlkODYyODAtYTA3Mi00OWYxLWFiMWYtYjU2OTA0NjQ1OTNmXzAxMA==\",\"2-ZGNlY2Y1MTEtZGEyYy00MmQ0LWEyNmItMDQzZWUzMWU4MzEyXzAxMw==\", \"6615475697433579520\"]",
+          "description": "(Required) This is the tread that the chats are associated with."
+        },
+        {
+          "name": "filterByStepChangeTimestamp",
+          "location": "query",
+          "required": false,
+          "example": "123",
+          "description": "(Optional) This action gets messages whose ‘stepChangeTimestamp’ parameter is greater than the value you provide.",
+          "postman_type": "text"
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This actions retrieves messages from a specific thread (refers to \"All other messages\" and \"All unread messages\" endpoints)."
+    },
+    {
+      "tool_name": "get_conversations_found_by_identifiers",
+      "display_name": "Get Conversations Found by Identifiers",
+      "group": "Conversations & Messages",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/conversations/identifiers",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "7",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "identifiers",
+          "location": "query",
+          "required": true,
+          "example": "[\"christopher-selvadass-39216429\",  \"asdasd\", \"nikola-jovanovic-678052158\"]",
+          "description": "(Required) These are the identifiers associated with the chat.\n\nType: String  (Array)\n\nAccepted values: Every identifier\n\nDefault value: \"[ ]\""
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This action retrieves all conversations found by using specific identifiers (refers to \"All channels\" endpoint)."
+    },
+    {
+      "tool_name": "get_unread_conversations",
+      "display_name": "Get Unread Conversations",
+      "group": "Conversations & Messages",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/conversations/unread",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "7",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "limit",
+          "location": "query",
+          "required": false,
+          "example": "10",
+          "description": "(Optional) Limit the number of results that you wish to retrieve.\n\nType: Number\n\nDefault value is set to: 30",
+          "disabled_in_example": true
+        },
+        {
+          "name": "offset",
+          "location": "query",
+          "required": false,
+          "example": "1",
+          "description": "(Optional) Choose the position in the dataset of a record in question.\n\nType: Number\n\nDefault value is set to: 0",
+          "disabled_in_example": true
+        },
+        {
+          "name": "name",
+          "location": "query",
+          "required": false,
+          "example": "suzana",
+          "description": "(Optional) Search a specific name in the chat\n\nType: Text\n\nDefault value is set to: null",
+          "disabled_in_example": true
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This action retrieves unread conversations (refers to \"All unread messages\" endpoint)."
+    },
+    {
+      "tool_name": "get_other_conversations",
+      "display_name": "Get Other Conversations",
+      "group": "Conversations & Messages",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/conversations/other",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "2",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "3",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "limit",
+          "location": "query",
+          "required": false,
+          "example": "1",
+          "description": "(Optional) Limit the number of results that you wish to retrieve.\n\nType: Number\n\nDefault value is set to: 30",
+          "disabled_in_example": true
+        },
+        {
+          "name": "offset",
+          "location": "query",
+          "required": false,
+          "example": "2",
+          "description": "(Optional) Choose the position in the dataset of a record in question.\n\nType: Number\n\nDefault value is set to: 0",
+          "disabled_in_example": true
+        },
+        {
+          "name": "name",
+          "location": "query",
+          "required": false,
+          "example": "Ng Wee Zheng",
+          "description": "(Optional) Search a specific name in the chat.\nType: Text\nDefault value is set to: null",
+          "disabled_in_example": true
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This action retrieves other conversations (refers to \"All other messages\" endpoint)."
+    },
+    {
+      "tool_name": "get_all_conversations",
+      "display_name": "Get All Conversations",
+      "group": "Conversations & Messages",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/conversations",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "92",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "limit",
+          "location": "query",
+          "required": false,
+          "example": "3",
+          "description": "(Optional) Limit the number of results that you wish to retrieve.\n\nType: Number\n\nDefault value is set to: 30",
+          "disabled_in_example": true
+        },
+        {
+          "name": "offset",
+          "location": "query",
+          "required": false,
+          "example": "2",
+          "description": "(Optional) Choose the position in the dataset of a record in question.\n\nType: Number\n\nDefault value is set to: 0",
+          "disabled_in_example": true
+        },
+        {
+          "name": "name",
+          "location": "query",
+          "required": false,
+          "example": "Charles",
+          "description": "(Optional)  Search a specific name in the chat.\n\nType: Text\n\nDefault value is set to: null",
+          "disabled_in_example": true
+        },
+        {
+          "name": "tagIds",
+          "location": "query",
+          "required": false,
+          "example": "[37026, 62391]",
+          "description": "(Optional) Choose the chats with the specific tag ID you want to retrieve.",
+          "postman_type": "text",
+          "disabled_in_example": true
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This action retrieves all conversations from the \"All channels\" endpoint. \"All other messages\" endpoint is excluded."
+    },
+    {
+      "tool_name": "get_conversations_from_a_specific_campaign",
+      "display_name": "Get Conversations From a Specific Campaign",
+      "group": "Conversations & Messages",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/campaigns/:campaignId/messages",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "7",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "campaignId",
+          "location": "path",
+          "required": true,
+          "example": "69",
+          "description": "(Required) This is the ID of the campaign from which you wish to get information."
+        },
+        {
+          "name": "limit",
+          "location": "query",
+          "required": false,
+          "example": "2",
+          "description": "(Optional) Limit the number of results that you wish to retrieve.\n\nType: Number\n\nDefault value is set to: 30",
+          "disabled_in_example": true
+        },
+        {
+          "name": "name",
+          "location": "query",
+          "required": false,
+          "example": "Ivo",
+          "description": "(Optional) Search a specific name in the chat.\n\nType: Text\n\nDefault value is set to: null",
+          "disabled_in_example": true
+        },
+        {
+          "name": "offset",
+          "location": "query",
+          "required": false,
+          "example": "2",
+          "description": "(Optional) Choose the position in the dataset of a record in question.\n\nType: Number\n\nDefault value is set to: 0",
+          "disabled_in_example": true
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This action retrieves conversations from a specific campaign."
+    },
+    {
+      "tool_name": "get_messages_for_leads",
+      "display_name": "Get Messages For Leads",
+      "group": "Conversations & Messages",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/conversations/leads",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "7",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "leadIds",
+          "location": "query",
+          "required": false,
+          "example": "[22222273076]",
+          "description": "(Optional) This is the ID of the lead whose messages you wish to retrieve.\n\nType: Number (Array)\n\nDefault: []"
+        },
+        {
+          "name": "limit",
+          "location": "query",
+          "required": false,
+          "example": "1",
+          "description": "(Optional) Limit the number of results that you will get.",
+          "disabled_in_example": true
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This action retrieves messages from specific leads from a specific campaign (refers to \"Get Conversations from a Specific Campaign\" endpoint)."
+    },
+    {
+      "tool_name": "mark_messages_as_seen",
+      "display_name": "Mark Messages as Seen",
+      "group": "Conversations & Messages",
+      "method": "PATCH",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/conversations/:thread/seen",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "161",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "thread",
+          "location": "path",
+          "required": true,
+          "example": "6615475697433579520",
+          "description": "(Required) This is the ID of the thread that the message in question is part of."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action marks messages from a specific thread as seen."
+    },
+    {
+      "tool_name": "send_new_email",
+      "display_name": "Send New Email",
+      "group": "Conversations & Messages",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/conversations/send_email_manually",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "169",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This action sends an email to a new recipient through the platform.",
+      "json_body_example": {
+        "recipient": "john.smith@company.com",
+        "subject": "John Smith",
+        "content": "<html><p style=\"margin: 0px; box-sizing: border-box;\">Open API test</p></html>",
+        "signatureId": 10
+      }
+    },
+    {
+      "tool_name": "send_email_to_a_thread",
+      "display_name": "Send Email To a Thread",
+      "group": "Conversations & Messages",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/conversations/:thread/email",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "7",
+          "description": "(Required) This is the ID of the account that the campaign in question is part of."
+        },
+        {
+          "name": "thread",
+          "location": "path",
+          "required": true,
+          "example": "6374381452003545088",
+          "description": "(Required) This is the ID of the thread that the message in question is part of."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action sends an email to an existing email thread in the platform’s inbox.",
+      "json_body_example": {
+        "id": 111853,
+        "message": "Example message",
+        "linkedinUserId": 111184980,
+        "dashboard": 4,
+        "messageType": "EMAIL",
+        "leadId": 22222283862,
+        "campaignId": 530,
+        "recipient": "john.smith@company.com"
+      }
+    },
+    {
+      "tool_name": "send_linkedin_message",
+      "display_name": "Send Linkedin Message",
+      "group": "Conversations & Messages",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/conversations/send_message",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "6390",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "7397",
+          "description": "(Required) This is the ID of the account that the campaign in question is part of."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action sends a LinkedIn messages to an existing LinkedIn thread in the platform's inbox.",
+      "json_body_example": {
+        "message": "Example message",
+        "linkedinUserId": 67663930,
+        "dashboard": 1,
+        "messageType": "LINKEDIN_MESSAGE",
+        "publicIdentifier": "john-smith-1a7614206",
+        "campaignId": 151609,
+        "leadId": 63789883
+      }
+    },
+    {
+      "tool_name": "get_specific_lead_s_messages",
+      "display_name": "Get Specific Lead's Messages",
+      "group": "Conversations & Messages",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/conversations/leads/:leadId",
+      "body_mode": "formdata",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "6390",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "11",
+          "description": "(Required) This is the ID of the seat that the messages in question are a part of."
+        },
+        {
+          "name": "leadId",
+          "location": "path",
+          "required": true,
+          "example": "12345",
+          "description": "(Required) This is the ID of the lead whose messages you want to get."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action retrieves conversation messages associated with a specific lead."
+    },
+    {
+      "tool_name": "create_a_non_global_webhook",
+      "display_name": "Create a Non-global Webhook",
+      "group": "Webhooks",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/webhooks",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "2",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This actions creates a non-global webhook."
+    },
+    {
+      "tool_name": "create_a_global_webhook",
+      "display_name": "Create a Global Webhook",
+      "group": "Webhooks",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/global_webhook",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "93",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This action creates a global webhook."
+    },
+    {
+      "tool_name": "list_non_global_webhooks",
+      "display_name": "List Non-global Webhooks",
+      "group": "Webhooks",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/webhooks",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": false,
+          "example": "1374"
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": false,
+          "example": "346"
+        },
+        {
+          "name": "limit",
+          "location": "query",
+          "required": false,
+          "example": "30"
+        },
+        {
+          "name": "offset",
+          "location": "query",
+          "required": false,
+          "example": "0"
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This action lists global webhooks."
+    },
+    {
+      "tool_name": "list_global_webhooks",
+      "display_name": "List Global Webhooks",
+      "group": "Webhooks",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/global_webhooks",
+      "body_mode": "urlencoded",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "2",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "limit",
+          "location": "query",
+          "required": false,
+          "example": "30"
+        },
+        {
+          "name": "offset",
+          "location": "query",
+          "required": false,
+          "example": "0"
+        },
+        {
+          "name": "test",
+          "location": "urlencoded",
+          "required": false,
+          "example": "test",
+          "description": "(optional) Value for testing",
+          "postman_type": "text",
+          "disabled_in_example": true
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This action lists all global webhooks."
+    },
+    {
+      "tool_name": "delete_a_non_global_webhook",
+      "display_name": "Delete a Non-global Webhook",
+      "group": "Webhooks",
+      "method": "DELETE",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/webhooks/:webhookId",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "27",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        },
+        {
+          "name": "webhookId",
+          "location": "path",
+          "required": true,
+          "example": "64347",
+          "description": "(Required) This is the ID of a webhook that you wish to delete."
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This action deletes a specific non-global webhook."
+    },
+    {
+      "tool_name": "delete_a_global_webhook",
+      "display_name": "Delete a Global Webhook",
+      "group": "Webhooks",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/delete_global_webhook",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "27",
+          "description": "(Required) This is the ID of the seat that the campaign in question is part of."
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/html"
+      ],
+      "description": "This actions deletes a specific global webhook.",
+      "json_body_example": {
+        "arrayOfActions": [
+          4
+        ],
+        "arrayOfIds": [
+          162
+        ],
+        "url": "www.example-webhook-url.com"
+      }
+    },
+    {
+      "tool_name": "get_tags_of_a_specific_seat",
+      "display_name": "Get Tags of a Specific Seat",
+      "group": "Seats",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/tags",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "169",
+          "description": "(Required) This is the ID of the seat which tags you wish to get."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action retrieves all tags related to a specific seat."
+    },
+    {
+      "tool_name": "connect_linkedin_account",
+      "display_name": "Connect Linkedin Account",
+      "group": "Seats",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/connect_linkedin",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1275",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "955",
+          "description": "(Required) This is your Seat ID."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This actions connects a specific LinkedIn account to a specific seat.",
+      "json_body_example": {
+        "linkedinEmail": "john.smith@company.com",
+        "linkedinPassword": "strong_password",
+        "linkedinSubscriptionId": 2,
+        "countryCode": "us",
+        "note": "Example note",
+        "setupProxyType": "BUY"
+      }
+    },
+    {
+      "tool_name": "disconnect_linkedin_account",
+      "display_name": "Disconnect LinkedIn Account",
+      "group": "Seats",
+      "method": "PATCH",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/disconnect_linkedin",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "43",
+          "description": "(Required) This is your Seat ID."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action disconnects a specific LinkedIn account from the seat on the platform."
+    },
+    {
+      "tool_name": "get_statistics",
+      "display_name": "Get Statistics",
+      "group": "Statistics",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/statistics",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "2",
+          "description": "(Required) This is the ID of the seat that the campaigns in question are part of."
+        },
+        {
+          "name": "from",
+          "location": "query",
+          "required": true,
+          "example": "1677269918",
+          "description": "(Required) Statistics are retrieved starting from this timestamp.\n\nType: Timestamp"
+        },
+        {
+          "name": "to",
+          "location": "query",
+          "required": true,
+          "example": "1677356318",
+          "description": "(Required) Statistics are retrieved ending with this timestamp.\n\nType: Timestamp"
+        },
+        {
+          "name": "curves",
+          "location": "query",
+          "required": true,
+          "example": "[1,2,3]",
+          "description": "(Required) Filter the statistic needed.\n\nType: Array\n\nexport enum AccountStatisticCurveType {\n  PROFILE_VIEW = 1,\n  PROFILE_FOLLOW = 2,\n  INVITATION_SENT = 3,\n  MESSAGE_SENT = 4,\n  INMAIL_SENT = 5,\n  EMAIL_SENT = 10,\n  EMAIL_OPENED = 11,\n  EMAIL_CLICKED = 12,\n  EMAIL_VERIFIED = 16,\n  INVITATION_ACCEPTED = 6,\n  // This is a reply for message and InMail\n  MESSAGE_REPLY = 7,\n  // rates\n  INVITATION_ACCEPTED_RATE= 8,\n  MESSAGE_REPLY_RATE = 9,\n  EMAIL_OPEN_RATE = 14,\n  EMAIL_CLICK_RATE = 15,\n  EMAIL_BOUNCE_RATE = 17\n}"
+        },
+        {
+          "name": "campaignId",
+          "location": "query",
+          "required": false,
+          "example": "2661",
+          "description": "(Optional) This is the ID of the campaign from which you wish to get statistics. \n\nType: number",
+          "disabled_in_example": true
+        },
+        {
+          "name": "timeZone",
+          "location": "query",
+          "required": true,
+          "example": "America/New_York",
+          "description": "(Required) This is the time zone related to the statistics' timeframe.\n\nType: String"
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action retrieves statistics for all campaigns.\n\ncampaign_id is optional. If provided, this action retrieves statistics for a specific campaign only."
+    },
+    {
+      "tool_name": "export_statistics_as_a_csv",
+      "display_name": "Export Statistics as a CSV",
+      "group": "Statistics",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/statistics/export_csv",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "2",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "3",
+          "description": "(Required) This is the ID of the seat that the campaigns in question are part of."
+        },
+        {
+          "name": "from",
+          "location": "query",
+          "required": true,
+          "example": "1592409758",
+          "description": "(Required) Statistics are retrieved starting from this timestamp.\n\nType: Timestamp"
+        },
+        {
+          "name": "to",
+          "location": "query",
+          "required": true,
+          "example": "1592496567",
+          "description": "(Required) Statistics are retrieved ending with this timestamp.\n\nType: Timestamp"
+        },
+        {
+          "name": "curves",
+          "location": "query",
+          "required": true,
+          "example": "[3,4]",
+          "description": "(Required) Filter the statistic needed.\n\nType: Array\n\nexport enum AccountStatisticCurveType {\n  PROFILE_VIEW = 1,\n  PROFILE_FOLLOW = 2,\n  INVITATION_SENT = 3,\n  MESSAGE_SENT = 4,\n  INMAIL_SENT = 5,\n  EMAIL_SENT = 10,\n  EMAIL_OPENED = 11,\n  EMAIL_CLICKED = 12,\n  EMAIL_VERIFIED = 16,\n  INVITATION_ACCEPTED = 6,\n  // This is a reply for message and InMail\n  MESSAGE_REPLY = 7,\n  // rates\n  INVITATION_ACCEPTED_RATE= 8,\n  MESSAGE_REPLY_RATE = 9,\n  EMAIL_OPEN_RATE = 14,\n  EMAIL_CLICK_RATE = 15,\n  EMAIL_BOUNCE_RATE = 17\n}"
+        },
+        {
+          "name": "timeZone",
+          "location": "query",
+          "required": true,
+          "example": "Europe/Belgrade",
+          "description": "(Required) This is the time zone related to the statistics' timeframe.\n\nType: String"
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/csv"
+      ],
+      "description": "This action retrieves statistics of all campaigns in a .CSV format."
+    },
+    {
+      "tool_name": "get_step_statistics_for_a_specific_campaign",
+      "display_name": "Get Step Statistics For a Specific Campaign",
+      "group": "Statistics",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/statistics/steps",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "169",
+          "description": "(Required) This is the ID of seat that the campaign in question is part of."
+        },
+        {
+          "name": "campaignId",
+          "location": "query",
+          "required": true,
+          "example": "3770",
+          "description": "(Required) This is the ID of the campaign from which you wish to get statistics.\n\nType: Number"
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action retrieves statistics for specific campaign steps part of a specific campaign."
+    },
+    {
+      "tool_name": "get_summary_statistics_for_all_campaigns",
+      "display_name": "Get Summary Statistics For All Campaigns",
+      "group": "Statistics",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/all_campaigns_statistics",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "169",
+          "description": "(Required) This is the ID of the seat that the campaigns in question are part of."
+        },
+        {
+          "name": "campaignState",
+          "location": "query",
+          "required": false,
+          "example": "1",
+          "description": "(Optional) State of the campaign.\n\nType: Number\n\nDefault value is set to: 1"
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action retrieves the platform's summary statistics (total) for all campaigns."
+    },
+    {
+      "tool_name": "add_keywords_to_global_blacklist",
+      "display_name": "Add Keywords To Global Blacklist",
+      "group": "Blacklist",
+      "method": "PATCH",
+      "api_version": "v1",
+      "path": "/teams/:teamId/users/:userId/global_blacklists/add_keyword",
+      "body_mode": "formdata",
+      "parameters": [
+        {
+          "name": "teamId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your Team ID."
+        },
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "keywords",
+          "location": "formdata",
+          "required": true,
+          "example": "[\"test\", \"test123\"]",
+          "description": "(Required) These are the keywords you wish to blacklist.",
+          "postman_type": "text"
+        },
+        {
+          "name": "type",
+          "location": "formdata",
+          "required": true,
+          "example": "company_name",
+          "description": "(Required) This is the keyword type you wish to blacklist. The type can be: company_name, email, domain, full_name, profile_url, or job_title.",
+          "postman_type": "text"
+        },
+        {
+          "name": "comparisonType",
+          "location": "formdata",
+          "required": true,
+          "example": "exact",
+          "description": "(Required) This is how you determine how your blacklisted item should match your keyword. The comparison type can be: exact, contains, starts_with, or ends_with.",
+          "postman_type": "text"
+        },
+        {
+          "name": "source",
+          "location": "formdata",
+          "required": true,
+          "example": "manual",
+          "description": "(Required) This is how your blacklisted items are added. The value must always be manual.",
+          "postman_type": "text"
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action adds keywords to your Global Blacklist via JSON."
+    },
+    {
+      "tool_name": "import_keywords_to_global_blacklist_from_a_csv_file",
+      "display_name": "Import Keywords To Global Blacklist From A CSV File",
+      "group": "Blacklist",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/teams/:teamId/users/:userId/global_blacklists/import_csv",
+      "body_mode": "formdata",
+      "parameters": [
+        {
+          "name": "teamId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your Team ID."
+        },
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "files",
+          "location": "formdata",
+          "required": true,
+          "description": "(Required) This is your CSV file with the added keywords.",
+          "postman_type": "file"
+        },
+        {
+          "name": "type",
+          "location": "formdata",
+          "required": true,
+          "example": "company_name",
+          "description": "(Required) This is the keyword type you wish to blacklist. The type can be: company_name, email, domain, full_name, profile_url, or job_title.",
+          "postman_type": "text"
+        },
+        {
+          "name": "comparisonType",
+          "location": "formdata",
+          "required": true,
+          "example": "exact",
+          "description": "(Required) This is how you determine how your blacklisted item should match your keyword. The comparison type can be: exact, contains, starts_with, or ends_with.",
+          "postman_type": "text"
+        },
+        {
+          "name": "source",
+          "location": "formdata",
+          "required": true,
+          "example": "manual",
+          "description": "(Required) This is how your blacklisted items are added. The value can be manual, csv, unsubscribe, or bounced.",
+          "postman_type": "text"
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/plain"
+      ],
+      "description": "This action adds keywords to Global Blacklist via CSV file."
+    },
+    {
+      "tool_name": "add_keywords_to_your_blacklist",
+      "display_name": "Add Keywords To Your Blacklist",
+      "group": "Blacklist",
+      "method": "PATCH",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/blacklists/add_keyword",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "3",
+          "description": "(Required) This is your Seat ID."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action adds keywords to your seat's Blacklist via JSON.",
+      "json_body_example": {
+        "keywords": [
+          "John Smith"
+        ],
+        "type": "full_name",
+        "comparisonType": "exact",
+        "source": "manual"
+      }
+    },
+    {
+      "tool_name": "import_keywords_to_your_blacklist_from_a_csv_file",
+      "display_name": "Import Keywords To Your Blacklist From A CSV File",
+      "group": "Blacklist",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/blacklists/import_csv",
+      "body_mode": "formdata",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your User ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "2",
+          "description": "(Required) This is your Seat ID."
+        },
+        {
+          "name": "files",
+          "location": "formdata",
+          "required": true,
+          "description": "(Required) This is your CSV file with the added keywords.",
+          "postman_type": "file"
+        },
+        {
+          "name": "type",
+          "location": "formdata",
+          "required": true,
+          "example": "company_name",
+          "description": "(Required) This is the keyword type you wish to blacklist. The type can be: company_name, email, domain, full_name, profile_url, or job_title.",
+          "postman_type": "text"
+        },
+        {
+          "name": "comparisonType",
+          "location": "formdata",
+          "required": true,
+          "example": "exact",
+          "description": "(Required) This is how you determine how your blacklisted item should match your keyword. The comparison type can be: exact, contains, starts_with, or ends_with.",
+          "postman_type": "text"
+        },
+        {
+          "name": "source",
+          "location": "formdata",
+          "required": true,
+          "example": "csv",
+          "description": "(Required) This is how your blacklisted items are added. The value can be manual, csv, unsubscribe, or bounced.",
+          "postman_type": "text"
+        }
+      ],
+      "response_media_types": [
+        "application/json",
+        "text/plain"
+      ],
+      "description": "This action adds keywords to your seat's Blacklist via CSV file."
+    },
+    {
+      "tool_name": "activate_inboxflare_warm_up",
+      "display_name": "Activate InboxFlare Warm-Up",
+      "group": "Warmup",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/activate_warmup_inboxflare",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is your userId."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This endpoint creates accounts for users on InboxFlare warm-up tool and sends them credentials via email."
+    },
+    {
+      "tool_name": "create_a_team",
+      "display_name": "Create A Team",
+      "group": "Team Management",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/users/:userId/create_team",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1451",
+          "description": "(Required) This is your user ID."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action creates a team for a specific user.",
+      "json_body_example": {
+        "name": "Example team"
+      }
+    },
+    {
+      "tool_name": "create_a_team_role",
+      "display_name": "Create A Team Role",
+      "group": "Team Management",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/teams/:teamId/users/:userId/create_role",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "teamId",
+          "location": "path",
+          "required": true,
+          "example": "1570",
+          "description": "(Required) This is the ID of the specific team for which you want to create this role."
+        },
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1451",
+          "description": "(Required) This is your user ID."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action creates a role for a specific team.",
+      "json_body_example": {
+        "name": "Example team",
+        "permissions": [
+          {
+            "id": 1,
+            "isViewOnly": false
+          },
+          {
+            "id": 2,
+            "isViewOnly": false
+          }
+        ]
+      }
+    },
+    {
+      "tool_name": "get_team_roles",
+      "display_name": "Get Team Roles",
+      "group": "Team Management",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/teams/:teamId/users/:userId/get_roles",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "teamId",
+          "location": "path",
+          "required": true,
+          "example": "1",
+          "description": "(Required) This is the ID of the specific team for which you want to retrieve roles."
+        },
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1451",
+          "description": "(Required) This is your user ID."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action retrieves all roles for a specific team."
+    },
+    {
+      "tool_name": "get_team_members",
+      "display_name": "Get Team Members",
+      "group": "Team Management",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/teams/:teamId/get_team_members",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1451",
+          "description": "(Required) This is your user ID."
+        },
+        {
+          "name": "teamId",
+          "location": "path",
+          "required": true,
+          "example": "1443",
+          "description": "(Required) This is the ID of the specific team for which you want to retrieve members."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action retrieves all members from a specific team."
+    },
+    {
+      "tool_name": "invite_a_team_member",
+      "display_name": "Invite A Team Member",
+      "group": "Team Management",
+      "method": "POST",
+      "api_version": "v1",
+      "path": "/teams/:teamId/users/:userId/invite_team_member",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "teamId",
+          "location": "path",
+          "required": true,
+          "example": "1443",
+          "description": "(Required) This is the ID of the team where you want to invite a member to."
+        },
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1451",
+          "description": "(Required) This is your user ID."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action invites a user to become a member of the specific team.\n\nThe `sendAnInvitationEmail` flag is set to “false” by default. If this flag is set to “false”, email invitation won’t be sent and the user's invitation will be automatically accepted. If this flag is set to “true”, an email invitation will be sent and the user can decide whether to accept it or not.",
+      "json_body_example": {
+        "name": "regressionplatformadmin@yopmail.com",
+        "email": "regressionplatformadmin@yopmail.com",
+        "accountRoles": [
+          {
+            "roleId": "6eb0c288-0a17-4f6c-88a3-bb750b34d7ca",
+            "accounts": [
+              1028
+            ]
+          }
+        ],
+        "canManagePayment": false,
+        "sendAnInvitationEmail": false
+      }
+    },
+    {
+      "tool_name": "update_a_team_member",
+      "display_name": "Update A Team Member",
+      "group": "Team Management",
+      "method": "PATCH",
+      "api_version": "v1",
+      "path": "/teams/:teamId/users/:userId/update_team_member",
+      "body_mode": "raw",
+      "parameters": [
+        {
+          "name": "teamId",
+          "location": "path",
+          "required": true,
+          "example": "1443",
+          "description": "(Required) This is the ID of the team which this member currently is or is invited to be a part of."
+        },
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "1451",
+          "description": "(Required) This is your user ID."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action edits and updates a team member from the specific team.",
+      "json_body_example": {
+        "email": "borisa@company.io",
+        "accountRoles": [
+          {
+            "roleId": "d144079f-2a22-4f86-b2a9-45b3289b4bf4",
+            "accounts": [
+              158
+            ]
+          }
+        ],
+        "canManageTeamGlobalWebhooks": true
+      }
+    },
+    {
+      "tool_name": "sync_linkedin_messages",
+      "display_name": "Sync LinkedIn Messages",
+      "group": "Settings",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/users/:userId/accounts/:accountId/fetch_conversations",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "userId",
+          "location": "path",
+          "required": true,
+          "example": "16911",
+          "description": "(Required) This is your user ID."
+        },
+        {
+          "name": "accountId",
+          "location": "path",
+          "required": true,
+          "example": "9852",
+          "description": "(Required) This is the ID of the seat for which you want to sync LinkedIn messages."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action gets all LinkedIn messages for a specific seat and shows them inside the platform’s inbox."
+    },
+    {
+      "tool_name": "health_check",
+      "display_name": "Health Check",
+      "group": "",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/",
+      "body_mode": "none",
+      "parameters": [],
+      "response_media_types": []
+    },
+    {
+      "tool_name": "get_description_for_id_type",
+      "display_name": "Get Description for ID Type",
+      "group": "",
+      "method": "GET",
+      "api_version": "v1",
+      "path": "/identityType/ids/:ids",
+      "body_mode": "none",
+      "parameters": [
+        {
+          "name": "ids",
+          "location": "path",
+          "required": true,
+          "example": "[1,2,3,4,5]",
+          "description": "(Required) This is the ID of the identity for which you wish to get description."
+        }
+      ],
+      "response_media_types": [
+        "application/json"
+      ],
+      "description": "This action retrieves description for a specific identity type."
+    }
+  ]
+}
